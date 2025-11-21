@@ -9,7 +9,15 @@ public class Constants {
 
     // CAN IDs for the swerve motors
     public static final int kfrontDriverSwerveID = 1;
-    public static final int kfrontPassengerSwerveID = 1;
-    public static final int kbackDriverSwerveID = 1;
-    public static final int kbackPassengerSwerveID = 1;
+    public static final int kfrontPassengerSwerveID = 3;
+    public static final int kbackDriverSwerveID = 5;
+    public static final int kbackPassengerSwerveID = 7;
+
+    // CAN Bus
+    public static final String kCANBusName = "271";
+
+    // Joystick Information
+    public static final int kjoystickPortNumber = 0;
+    public static final int kdriveAxisNumber = 1;
+    public static final int kswerveAxisNumber = 4;
 }
