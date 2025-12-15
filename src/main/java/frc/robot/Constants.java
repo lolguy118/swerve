@@ -12,6 +12,11 @@ public class Constants {
     public static final int kfrontPassengerSwerveID = 3;
     public static final int kbackDriverSwerveID = 5;
     public static final int kbackPassengerSwerveID = 7;
+    
+    // TODO: Add Gear Ratio
+    // TODO: Add Stearing Gear Ratio
+    public static final double kgearRatio = 2048;
+    public static final double ksteeringGearRatio = 12.8;
 
     // CAN Bus
     public static final String kCANBusName = "271";
