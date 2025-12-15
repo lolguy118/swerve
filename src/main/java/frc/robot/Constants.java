@@ -18,6 +18,11 @@ public class Constants {
     public static final double kgearRatio = 2048;
     public static final double ksteeringGearRatio = 12.8;
 
+    // TODO: Add wheel base
+    // TODO: Add track width
+    public static final double wheelBase = 5.0;
+    public static final double trackWidth = 2.0;
+
     // CAN Bus
     public static final String kCANBusName = "271";
 
