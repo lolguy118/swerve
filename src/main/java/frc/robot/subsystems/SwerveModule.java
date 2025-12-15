@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import frc.robot.Constants;
@@ -46,5 +47,33 @@ public class SwerveModule {
         if (rotationNeeded < -0.5) rotationNeeded += 1;
         else if (rotationNeeded > 0.5) rotationNeeded -= 1;
         return rotationNeeded;
+    }
+
+    public boolean shouldReverse(double angle, double encoderPosition, double gearRatio) {
+        double convertedEnconderPosition = (encoderPosition / gearRatio) % 1;
+        if (angle < 0) angle += 1;
+        double differenceBetweenCurrentAndDesiredPosition = Math.abs(angle - convertedEnconderPosition);
+        if (Math.min(differenceBetweenCurrentAndDesiredPosition, 1 - differenceBetweenCurrentAndDesiredPosition) > 0.25) return true;
+        return false;
+    }
+
+    public double[] computeSetPoints(double nomrmalizedSpeed, double angle, double encoderPosition, double gearRatio) {
+        double newAngle = this.convertAngle(angle, encoderPosition, gearRatio);
+        double speed = nomrmalizedSpeed;
+
+        if (this.shouldReverse(newAngle, encoderPosition, gearRatio)) {
+            if (newAngle > 0) newAngle -= 0.5;
+            if (newAngle < 0) newAngle += 0.5;
+            speed *= -1;
+        }
+
+        return new double[] {speed, newAngle};
+    }
+
+    public void move(double nomrmalizedSpeed, double angle) {
+        double[] setPoint = this.computeSetPoints(nomrmalizedSpeed, angle, swerveMotor.getPosition().getValueAsDouble(), Constants.kgearRatio);
+
+        driveMotor.set(setPoint[0]);
+        swerveMotor.setControl(new PositionDutyCycle(angle * Constants.ksteeringGearRatio));
     }
 }
