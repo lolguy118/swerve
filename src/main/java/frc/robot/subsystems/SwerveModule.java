@@ -74,6 +74,6 @@ public class SwerveModule {
         double[] setPoint = this.computeSetPoints(nomrmalizedSpeed, angle, swerveMotor.getPosition().getValueAsDouble(), Constants.kgearRatio);
 
         driveMotor.set(setPoint[0]);
-        swerveMotor.setControl(new PositionDutyCycle(angle * Constants.ksteeringGearRatio));
+        if (setPoint[0] != 0.0) swerveMotor.setControl(new PositionDutyCycle(angle * Constants.ksteeringGearRatio));
     }
 }
