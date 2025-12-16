@@ -7,6 +7,9 @@ public class Constants {
     public static final int kbackDriverDriveID = 6;
     public static final int kbackPassengerDriveID = 8;
 
+    // CAN ID for gyro
+    public static final int kgyroID = 0;
+
     // CAN IDs for the swerve motors
     public static final int kfrontDriverSwerveID = 1;
     public static final int kfrontPassengerSwerveID = 3;
