@@ -27,6 +27,7 @@ public class Constants {
     public static final String kCANBusName = "271";
 
     // Joystick Information
+    // TODO: Add the Axis numbers
     public static final int kjoystickPortNumber = 0;
     public static final int kspeedAxisNumber = 1;
     public static final int kswerveAxisNumber = 4;
