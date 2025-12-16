@@ -3,12 +3,14 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants;
 
 public class SwerveModule {
     
     private final TalonFX driveMotor;
     private final TalonFX swerveMotor;
+    private final Translation2d location;
 
     public enum SwerveModuleLocation {
         FRONT_DRIVER,
@@ -22,18 +24,22 @@ public class SwerveModule {
             case FRONT_DRIVER:
                 driveMotor = new TalonFX(Constants.kfrontDriverDriveID, Constants.kCANBusName);
                 swerveMotor = new TalonFX(Constants.kfrontDriverSwerveID, Constants.kCANBusName);
+                this.location = new Translation2d(Constants.kwheelBase / 2, Constants.ktrackWidth / 2);
                 break;
             case FRONT_PASSENGER:
                 driveMotor = new TalonFX(Constants.kfrontPassengerDriveID, Constants.kCANBusName);
                 swerveMotor = new TalonFX(Constants.kfrontPassengerSwerveID, Constants.kCANBusName);
+                this.location = new Translation2d(Constants.kwheelBase / 2, -Constants.ktrackWidth / 2);
                 break;
             case BACK_DRIVER:
                 driveMotor = new TalonFX(Constants.kbackDriverDriveID, Constants.kCANBusName);
                 swerveMotor = new TalonFX(Constants.kbackDriverSwerveID, Constants.kCANBusName);
+                this.location = new Translation2d(-Constants.kwheelBase / 2, Constants.ktrackWidth / 2);
                 break;
             case BACK_PASSENGER:
                 driveMotor = new TalonFX(Constants.kbackPassengerDriveID, Constants.kCANBusName);
                 swerveMotor = new TalonFX(Constants.kbackPassengerSwerveID, Constants.kCANBusName);
+                this.location = new Translation2d(-Constants.kwheelBase / 2, -Constants.ktrackWidth / 2);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown SwerveModuleLocation: " + locationOfSwerveModule);
