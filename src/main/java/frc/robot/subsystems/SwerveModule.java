@@ -82,4 +82,8 @@ public class SwerveModule {
         driveMotor.set(setPoint[0]);
         if (setPoint[0] != 0.0) swerveMotor.setControl(new PositionDutyCycle(angle * Constants.ksteeringGearRatio));
     }
+
+    public Translation2d getLocation() {
+        return this.location;
+    }
 }
