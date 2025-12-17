@@ -25,6 +25,7 @@ public class Constants {
     // TODO: Add track width
     public static final double kwheelBase = 5.0;
     public static final double ktrackWidth = 2.0;
+    public static final double maxSpeed = 10.0;
 
     // CAN Bus
     public static final String kCANBusName = "271";
