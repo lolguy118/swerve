@@ -2,8 +2,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.Pigeon2;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
 import frc.robot.subsystems.SwerveModule.SwerveModuleLocation;
@@ -32,5 +34,14 @@ public class Drive {
             joystick.getRawAxis(Constants.kswerveAxisNumber), 
             joystick.getRawAxis(Constants.krotationAxisNumber)
         };
+    }
+
+    public void updateSwerveModules() {
+        double[] joystickValues = this.getJoystickValues();
+        SwerveModuleState[] states = kinematics.toSwerveModuleStates(new ChassisSpeeds(joystickValues[0], joystickValues[1], joystickValues[2]));
+        frontDriver.move(states[0].speedMetersPerSecond / Constants.maxSpeed, states[0].angle.getRadians() / (2 * Math.PI));
+        frontPassenger.move(states[1].speedMetersPerSecond / Constants.maxSpeed, states[1].angle.getRadians() / (2 * Math.PI));
+        backDriver.move(states[2].speedMetersPerSecond / Constants.maxSpeed, states[2].angle.getRadians() / (2 * Math.PI));
+        backPassenger.move(states[3].speedMetersPerSecond / Constants.maxSpeed, states[3].angle.getRadians() / (2 * Math.PI));
     }
 }
