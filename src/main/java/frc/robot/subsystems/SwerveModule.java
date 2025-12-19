@@ -46,7 +46,7 @@ public class SwerveModule {
         }
     }
 
-    public double convertAngle(double angle, double encoderPosition, double gearRatio) {
+    private double convertAngle(double angle, double encoderPosition, double gearRatio) {
         double convertedEncoderPosition = encoderPosition / gearRatio;
         double desiredPosition = (int)convertedEncoderPosition + angle;
         double rotationNeeded = desiredPosition - convertedEncoderPosition;
@@ -55,7 +55,7 @@ public class SwerveModule {
         return rotationNeeded;
     }
 
-    public boolean shouldReverse(double angle, double encoderPosition, double gearRatio) {
+    private boolean shouldReverse(double angle, double encoderPosition, double gearRatio) {
         double convertedEnconderPosition = (encoderPosition / gearRatio) % 1;
         if (angle < 0) angle += 1;
         double differenceBetweenCurrentAndDesiredPosition = Math.abs(angle - convertedEnconderPosition);
@@ -63,7 +63,7 @@ public class SwerveModule {
         return false;
     }
 
-    public double[] computeSetPoints(double nomrmalizedSpeed, double angle, double encoderPosition, double gearRatio) {
+    private double[] computeSetPoints(double nomrmalizedSpeed, double angle, double encoderPosition, double gearRatio) {
         double newAngle = this.convertAngle(angle, encoderPosition, gearRatio);
         double speed = nomrmalizedSpeed;
 
