@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants;
 import frc.robot.subsystems.SwerveModule.SwerveModuleLocation;
 
-public class Drive {
+public class Drive extends Subsystem {
     private final SwerveModule frontDriver = new SwerveModule(SwerveModuleLocation.FRONT_DRIVER);
     private final SwerveModule frontPassenger = new SwerveModule(SwerveModuleLocation.FRONT_PASSENGER);
     private final SwerveModule backDriver = new SwerveModule(SwerveModuleLocation.BACK_DRIVER);
@@ -36,12 +36,16 @@ public class Drive {
         };
     }
 
-    public void updateSwerveModules() {
+    private void updateSwerveModules() {
         double[] joystickValues = this.getJoystickValues();
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(new ChassisSpeeds(joystickValues[0], joystickValues[1], joystickValues[2]));
         frontDriver.move(states[0].speedMetersPerSecond / Constants.maxSpeed, states[0].angle.getRadians() / (2 * Math.PI));
         frontPassenger.move(states[1].speedMetersPerSecond / Constants.maxSpeed, states[1].angle.getRadians() / (2 * Math.PI));
         backDriver.move(states[2].speedMetersPerSecond / Constants.maxSpeed, states[2].angle.getRadians() / (2 * Math.PI));
         backPassenger.move(states[3].speedMetersPerSecond / Constants.maxSpeed, states[3].angle.getRadians() / (2 * Math.PI));
+    }
+
+    public void update() {
+        this.updateSwerveModules();
     }
 }
